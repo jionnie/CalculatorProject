@@ -8,8 +8,9 @@ public class Calculator {
     private List<Number> results = new ArrayList<Number>();
 
     // getter
+    // 그냥 return results; 하면 외부에서 접근 가능(private 접근 제한이 무의미) -> 원본의 복사본을 반환
     public List<Number> getResults() {
-        return results;
+        return new ArrayList<>(results);
     }
 
     // setter
@@ -42,10 +43,8 @@ public class Calculator {
                 System.out.println("잘못된 입력입니다! (+, -, *, /) 중 하나를 입력하세요.");
         }
 
-        /*
-        Integer에서 int 값 빼내서 반환
-        ArrayList(result)의 size가 0이 아닐 때만 result.size() - 1
-         */
+        // Integer에서 int 값 빼내서 반환
+        // ArrayList(result)의 size가 0이 아닐 때만 result.size() - 1
         if (results.isEmpty()) {
             return 0;
         } else {
