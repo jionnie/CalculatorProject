@@ -6,38 +6,40 @@ import java.util.List;
 public class ArithmeticCalculator {
 
     // 연산 결과를 저장하는 컬렉션 타입 필드
-    private List<Integer> results = new ArrayList<Integer>();
+    private List<Double> results = new ArrayList<>();
 
     // getter
     // 그냥 return results; 하면 외부에서 접근 가능(private 접근 제한이 무의미) -> 원본의 복사본을 반환
-    public List<Integer> getResults() {
+    public List<Double> getResults() {
         return new ArrayList<>(results);
     }
 
     // setter
-    public void setResults(List<Integer> newResults) {
+    public void setResults(List<Double> newResults) {
         this.results = newResults;
     }
 
     // 사칙연산을 수행하는 메소드
-    public int calculate(int x, int y, OperatorType operator) {
+    public <T extends Number> double calculate(T x, T y, OperatorType operator) {
+        double a = x.doubleValue();
+        double b = y.doubleValue();
 
         // 사칙연산 기호에 맞는 연산 수행
         switch (operator) {
             case PLUS:
-                results.add(x + y);
+                results.add(a + b);
                 break;
             case MINUS:
-                results.add(x - y);
+                results.add(a - b);
                 break;
             case MULTIPLY:
-                results.add(x * y);
+                results.add(a * b);
                 break;
             case DIVIDE:
-                if (y == 0) {
+                if (b == 0.0) {
                     throw new ArithmeticException("0으로 나눌 수 없습니다.");
                 }
-                results.add(x / y);
+                results.add(a / b);
                 break;
         }
 
