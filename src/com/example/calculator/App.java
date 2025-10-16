@@ -8,6 +8,7 @@ public class App {
         Calculator calc = new Calculator();
 
         while (true) {
+            System.out.println("======== 계산을 시작합니다. ========\n");
             // 양의 정수 2개 입력 받기
             System.out.print("첫 번째 숫자를 입력하세요: ");
             int x = sc.nextInt();
@@ -24,17 +25,21 @@ public class App {
             // 결과값 출력
             System.out.println("연산 결과: " + result);
 
-            // 결과값 삭제 (값이 저장 되자마자 지워져서 초기 상태가 됨)
-            if (!calc.getResults().isEmpty()) {
-                calc.removeResult();
-            }
+            // 결과 기록 출력
+            System.out.println("연산 기록: " + calc.getResults());
 
-            // exit 입력 시 반복문 종료
-            System.out.print("계산을 계속 하시려면 아무 키나 입력하세요. (exit 입력 시 종료): ");
+            // exit 입력 시 반복문 종료, del 입력 시 처음 기록 삭제
+            System.out.print("계산을 계속 하시려면 아무 키나 입력하세요. (exit 입력 시 종료, del 입력 시 처음 기록 삭제): ");
             String exit = sc.next();
             if (exit.equals("exit")) {
                 break;
+            } else if (exit.equals("del")) {
+                if (!calc.getResults().isEmpty()) {
+                    calc.removeResult();
+                    System.out.println("삭제 되었습니다. 연산 기록: " + calc.getResults());
+                }
             }
+            System.out.println();
         }
 
     }
