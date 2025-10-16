@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        Calculator calc = new Calculator();
+        ArithmeticCalculator calc = new ArithmeticCalculator();
 
         while (true) {
             try {
@@ -21,7 +21,13 @@ public class App {
                 char op = sc.next().charAt(0);
 
                 // 입력값을 매개값으로 넘기며 연산 수행
-                int result = calc.calculate(x, y, op);
+                int result = switch (op) {
+                    case '+' -> calc.calculate(x, y, OperatorType.PLUS);
+                    case '-' -> calc.calculate(x, y, OperatorType.MINUS);
+                    case '*' -> calc.calculate(x, y, OperatorType.MULTIPLY);
+                    case '/' -> calc.calculate(x, y, OperatorType.DIVIDE);
+                    default -> throw new IllegalArgumentException("잘못된 연산자 입력입니다.");
+                };
 
                 // 결과값 출력
                 System.out.println("연산 결과: " + result);
@@ -43,11 +49,9 @@ public class App {
                 }
                 System.out.println();
             } catch (InputMismatchException e) {
-                System.out.println("올바른 수를 입력하세요!\n");
+                System.out.println("올바른 수를 입력하세요.\n");
                 sc.nextLine(); // 버퍼에 남은 잘못된 입력값 제거
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage() + "\n");
-            } catch (ArithmeticException e) {
+            } catch (IllegalArgumentException | ArithmeticException e) {
                 System.out.println(e.getMessage() + "\n");
             }
         }
