@@ -18,7 +18,7 @@ public class Calculator {
         this.results = newResults;
     }
 
-    // 양의 정수 2개와 연산 기호를 매개변수로 받아 사칙연산을 수행하는 메소드
+    // 사칙연산을 수행하는 메소드
     public int calculate(int x, int y, char op) {
 
         // 사칙연산 기호에 맞는 연산 수행
@@ -34,13 +34,12 @@ public class Calculator {
                 break;
             case '/':
                 if (y == 0) {
-                    System.out.println("나눗셈 연산에서 분모가 0이 될 수 없습니다.");
-                    break;
+                    throw new ArithmeticException("0으로 나눌 수 없습니다.");
                 }
                 results.add(x / y);
                 break;
             default:
-                System.out.println("잘못된 입력입니다! (+, -, *, /) 중 하나를 입력하세요.");
+                throw new IllegalArgumentException("잘못된 연산자 입력입니다." );
         }
         
         // 가장 마지막에 추가된 요소 반환
