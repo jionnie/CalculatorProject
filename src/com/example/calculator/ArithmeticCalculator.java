@@ -2,6 +2,7 @@ package com.example.calculator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ArithmeticCalculator {
 
@@ -55,5 +56,14 @@ public class ArithmeticCalculator {
     // 저장된 연산 결과들 중 가장 먼저 저장된 데이터를 삭제하는 기능을 가진 메소드
     public void removeResult() {
         results.remove(0);
+    }
+
+    // 저장된 연산 결과들 중 Scanner로 입력받은 값보다 큰 결과값들을 출력
+    public <T extends Number> void printResultGreaterThanInput(T input) {
+        List<Double> copyResults = new ArrayList<>(results); // 원본에 영향가지 않도록 복사본 생성
+        List<Double> result = copyResults.stream()
+                .filter(num -> num > input.doubleValue())
+                .collect(Collectors.toList());
+        System.out.println("입력값 보다 큰 결과값: " + result);
     }
 }

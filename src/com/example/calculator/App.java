@@ -38,7 +38,7 @@ public class App {
                 System.out.println("연산 기록: " + calc.getResults());
 
                 // exit 입력 시 반복문 종료, del 입력 시 처음 기록 삭제
-                System.out.print("계산을 계속 하시려면 아무 키나 입력하세요. (exit 입력 시 종료, del 입력 시 처음 기록 삭제): ");
+                System.out.print("[exit] 종료, [del] 처음 기록 삭제, [gt] 입력값 보다 큰 값들 출력하기, [그 외 아무 키] 계산 계속하기: ");
                 String exit = sc.nextLine();
                 if (exit.equals("exit")) {
                     break;
@@ -48,6 +48,11 @@ public class App {
                         System.out.println("삭제 되었습니다.");
                         System.out.println("연산 기록: " + calc.getResults());
                     }
+                } else if (exit.equals("gt")) {
+                    System.out.print("비교 기준값을 입력하세요: ");
+                    String input_ = sc.nextLine();
+                    Double input = Double.parseDouble(input_);
+                    calc.printResultGreaterThanInput(input);
                 }
                 System.out.println();
             } catch (NumberFormatException e) {
