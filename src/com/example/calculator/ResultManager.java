@@ -33,8 +33,7 @@ public class ResultManager {
 
     // 저장된 연산 결과들 중 Scanner로 입력받은 값보다 큰 결과값들을 출력하는 메소드
     public List<Double> getGreaterThan(double threshold) {
-        List<Double> copyResults = new ArrayList<>(results); // 원본에 영향가지 않도록 복사본 생성
-        return copyResults.stream()
+        return results.stream()
                 .filter(num -> num > threshold)
                 .collect(Collectors.toList());
     }
