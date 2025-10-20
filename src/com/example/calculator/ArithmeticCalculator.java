@@ -1,6 +1,6 @@
 package com.example.calculator;
 
-public class ArithmeticCalculator<T extends Number> {
+public class ArithmeticCalculator {
     private final ResultManager resultManager;
 
     public ArithmeticCalculator(ResultManager resultManager) {
@@ -8,7 +8,7 @@ public class ArithmeticCalculator<T extends Number> {
     }
 
     // 사칙연산을 수행하는 메소드
-    public double calculate(T x, T y, OperatorType operator) {
+    public <T extends Number> double calculate(T x, T y, OperatorType operator) {
         // T -> double 타입 변환
         double a = x.doubleValue();
         double b = y.doubleValue();

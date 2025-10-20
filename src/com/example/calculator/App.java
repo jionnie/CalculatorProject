@@ -1,6 +1,5 @@
 package com.example.calculator;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class App {
