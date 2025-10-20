@@ -1,6 +1,7 @@
 package com.example.calculator;
 
 public enum OperatorType {
+    // 각 열거 상수가 추상 메소드를 익명 내부 클래스 형식으로 재정의
     PLUS("+") {
         @Override
         public double apply(double x, double y) {
@@ -22,6 +23,9 @@ public enum OperatorType {
     DIVIDE("/") {
         @Override
         public double apply(double x, double y) {
+            if (y == 0) {
+                throw new ArithmeticException("0으로 나눌 수 없습니다.");
+            }
             return x / y;
         }
     };
@@ -45,7 +49,7 @@ public enum OperatorType {
             case '-' -> MINUS;
             case '*' -> MULTIPLY;
             case '/' -> DIVIDE;
-            default -> throw new IllegalArgumentException("올바르지 않은 연산자입니다.");
+            default -> throw new IllegalArgumentException("올바른 연산자를 입력하세요.");
         };
     }
 }

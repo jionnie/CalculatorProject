@@ -1,9 +1,5 @@
 package com.example.calculator;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class ArithmeticCalculator<T extends Number> {
     private final ResultManager resultManager;
 
