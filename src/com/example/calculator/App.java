@@ -6,7 +6,8 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        ArithmeticCalculator calc = new ArithmeticCalculator();
+        ResultManager rm = new ResultManager();
+        ArithmeticCalculator calc = new ArithmeticCalculator(rm);
 
         while (true) {
             try {
@@ -21,38 +22,42 @@ public class App {
                 // 사칙연산 기호 입력 받기
                 System.out.print("어떤 연산을 하시겠습니까? (+, -, *, /): ");
                 char op = sc.nextLine().charAt(0);
+                OperatorType operator = OperatorType.fromSymbol(op);
 
-                // 입력값을 매개값으로 넘기며 연산 수행
-                double result = switch (op) {
-                    case '+' -> calc.calculate(x, y, OperatorType.PLUS);
-                    case '-' -> calc.calculate(x, y, OperatorType.MINUS);
-                    case '*' -> calc.calculate(x, y, OperatorType.MULTIPLY);
-                    case '/' -> calc.calculate(x, y, OperatorType.DIVIDE);
-                    default -> throw new IllegalArgumentException("잘못된 연산자 입력입니다.");
-                };
-
+                // 연산 수행
+                double result = calc.calculate(x, y, operator);
+                
                 // 결과값 출력
-                System.out.println("연산 결과: " + result);
+                System.out.println("\n연산 결과: " + result);
 
                 // 결과 기록 출력
-                System.out.println("연산 기록: " + calc.getResults());
+                System.out.println("연산 기록: " + rm.getResults());
+                System.out.println();
 
                 // exit 입력 시 반복문 종료, del 입력 시 처음 기록 삭제
-                System.out.print("[exit] 종료, [del] 처음 기록 삭제, [gt] 입력값 보다 큰 값들 출력하기, [그 외 아무 키] 계산 계속하기: ");
-                String exit = sc.nextLine();
-                if (exit.equals("exit")) {
-                    break;
-                } else if (exit.equals("del")) {
-                    if (!calc.getResults().isEmpty()) {
-                        calc.removeResult();
-                        System.out.println("삭제 되었습니다.");
-                        System.out.println("연산 기록: " + calc.getResults());
-                    }
-                } else if (exit.equals("gt")) {
-                    System.out.print("비교 기준값을 입력하세요: ");
-                    String input_ = sc.nextLine();
-                    Double input = Double.parseDouble(input_);
-                    calc.printResultGreaterThanInput(input);
+                System.out.println("1. [exit] 계산기 프로그램 종료\n" +
+                        "2. [del] 처음 연산 기록 삭제\n" +
+                        "3. [gt] 입력값 보다 큰 값들 출력\n" +
+                        "4. [그 외 아무 키] 계산 계속하기");
+                System.out.print("다음 중 하나를 선택하세요: ");
+
+                String select = sc.nextLine();
+                switch (select) {
+                    case "exit":
+                        break;
+                    case "del":
+                        if (!rm.getResults().isEmpty()) {
+                            rm.removeFirst();
+                            System.out.println("삭제 되었습니다.");
+                            System.out.println("연산 기록: " + rm.getResults());
+                        }
+                        break;
+                    case "gt":
+                        System.out.print("비교 기준값을 입력하세요: ");
+                        String input_ = sc.nextLine();
+                        double input = Double.parseDouble(input_);
+                        System.out.println(rm.getGreaterThan(input));;
+                        break;
                 }
                 System.out.println();
             } catch (NumberFormatException e) {
